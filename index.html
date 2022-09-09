@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        *{
+            box-sizing: content-box;
+        }
+
+        section{
+            margin: 30px 0;
+
+        }
+        .container{
+            border: 1px solid black;
+            margin: 10px auto;
+        }
+
+        .conical{
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+
+        .conical-box{
+
+            width: 100%;
+            height: 100%;
+            background-image: conic-gradient(blue 0deg, blue 90deg, white 90deg, white 360deg);
+            border-radius: 50%;
+            border:0.5px solid black;
+        }
+
+        .conical-cover{
+            position: absolute;
+            border-radius: 50%;
+            background-color: white;
+            width: 95%;
+            height: 95%;
+            top: 10px;
+            left: 10px;
+
+            border:0.5px solid black;
+
+        }
+
+        .conical-percentage{
+            position: absolute;
+            font-weight: 800;
+            top: 48%;
+            left: 48%;
+        }
+
+
+        button{
+            padding: 5px;
+            color: white;
+            background-color: blue;
+        }
+
+        button:disabled{
+            background-color: gray;
+        }
+
+        .manual{
+            width: 600px;
+            height: 50px;
+            border: 1px solid black;
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .manual::before{
+            content: '';
+            position: absolute;
+            height: 5px;
+            width: 100%;
+            background-color: gray;
+            top: 20px;
+            z-index: 1;
+        }
+
+        .manual > .tracker{
+            position: absolute;
+            height: 5px;
+            width: 0%;
+            top: 20px;
+            background-color: blue;
+            z-index: 2;
+
+        }
+
+        .manual-element{
+            border-radius: 50%;
+            z-index: 3;
+            background-color: white;
+            border: 5px solid gray;
+        }
+
+        .active{
+            border: 5px solid blue;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    
+<section class="container">
+
+
+
+<section class="progress">
+<label for="progess-bar">Percentage Complete</label>
+<progress id="progess-bar" value="25" max="100"></progress>
+</section>
+
+
+
+<section class="manual">
+    <div class="tracker"></div>
+    <div class="manual-element active">1</div>
+    <div class="manual-element">2</div>
+    <div class="manual-element">3</div>
+    <div class="manual-element">4</div>
+</section>
+
+
+
+<section class="conical">
+    <div class="conical-box"></div>
+    <div class="conical-cover"></div>
+    <div class="conical-percentage">25%</div>
+</section>
+
+
+
+<section class="btns">
+    <button class="prev" >PREV</button>
+    <button class="next">NEXT</button>
+</section>
+
+
+
+
+
+</section>
+
+<script>
+let activeNum=1;
+let prev = document.querySelector('.prev');
+let next = document.querySelector('.next')
+let items = document.querySelectorAll('.manual > div')
+let progressBar = document.querySelector('progress')
+let conicPercentage = document.querySelector('.conical-percentage')
+
+let conicBox = document.querySelector('.conical-box')
+console.log(conicBox)
+console.log(conicBox.style.backgroundImage)
+// conicBox.style.backgroundImage="conic-gradient(blue 0deg, blue 180deg, white 180deg, white 360deg);"
+conicBox.style.backgroundColor="pink"
+
+
+
+
+let widthTracker = document.querySelector('.manual > .tracker')
+
+
+
+
+prev.addEventListener('click',function(){
+    if(activeNum!=1)
+    {
+    items[activeNum].classList.remove('active');
+    }
+    activeNum = activeNum==1?1:--activeNum;
+
+    work();
+});
+
+next.addEventListener('click',function(){
+    activeNum = activeNum==(items.length-1)?activeNum:++activeNum;
+    items[activeNum].classList.add('active')
+
+    work()
+});
+
+function work(){
+    progressBar.value=activeNum*25;
+    conicPercentage.innerText = activeNum*25 +'%'
+
+    if(activeNum==1){
+        widthTracker.style.width='0%'
+    }
+    else{
+    widthTracker.style.width=(activeNum-1)*(33.33)+'%'
+    }
+
+    if(activeNum==4){
+        next.disabled = true
+    }
+    else if(activeNum==1){
+        prev.disabled = true
+    }
+    else{
+        next.disabled = prev.disabled = false;
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>
