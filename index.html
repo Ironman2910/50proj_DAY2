@@ -163,18 +163,10 @@ let progressBar = document.querySelector('progress')
 let conicPercentage = document.querySelector('.conical-percentage')
 
 let conicBox = document.querySelector('.conical-box')
-console.log(conicBox)
-console.log(conicBox.style.backgroundImage)
-// conicBox.style.backgroundImage="conic-gradient(blue 0deg, blue 180deg, white 180deg, white 360deg);"
-conicBox.style.backgroundColor="pink"
-
-
-
-
 let widthTracker = document.querySelector('.manual > .tracker')
 
 
-
+work();
 
 prev.addEventListener('click',function(){
     if(activeNum!=1)
@@ -204,6 +196,7 @@ function work(){
     widthTracker.style.width=(activeNum-1)*(33.33)+'%'
     }
 
+    /*for buttons*/
     if(activeNum==4){
         next.disabled = true
     }
@@ -213,6 +206,16 @@ function work(){
     else{
         next.disabled = prev.disabled = false;
     }
+
+    /*for conic gradient*/
+    if(activeNum==1)
+    conicBox.style.backgroundImage="conic-gradient(blue 0deg, blue 90deg, white 90deg, white 360deg)"
+    else if(activeNum==2)
+    conicBox.style.backgroundImage="conic-gradient(blue 0deg, blue 180deg, white 180deg, white 360deg)"
+    else if(activeNum==3)
+    conicBox.style.backgroundImage="conic-gradient(blue 0deg, blue 270deg, white 270deg, white 360deg)"
+    else
+    conicBox.style.backgroundImage="conic-gradient(blue 0deg, blue 360deg, white 360deg, white 360deg)"
 
 }
 
